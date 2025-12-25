@@ -17,3 +17,12 @@ def home(request):
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     return render(request, 'catalog/product_detail.html', {'product': product})
+def service_list(request):
+    # تمام سرویس‌هایی که فعال هستند را از دیتابیس بگیر
+    services = Service.objects.filter(is_active=True)
+    
+    # آن‌ها را برای نمایش به قالب بفرست
+    context = {
+        'services': services
+    }
+    return render(request, 'catalog/service_list.html', context)

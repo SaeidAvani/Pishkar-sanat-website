@@ -135,7 +135,7 @@
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">صفحه اصلی</a></li>
                     <li class="nav-item"><a class="nav-link" href="#products">محصولات</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#services">خدمات و تعمیرات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'service_list' %}">
                     <li class="nav-item"><a class="nav-link" href="#about">درباره ما</a></li>
                 </ul>
                 <div class="ms-lg-4 mt-3 mt-lg-0">
@@ -208,7 +208,7 @@
             </div>
             <div class="row g-4 justify-content-center">
                 {% for service in services %}
-                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+                <div class="col-md-5 col-lg-3 data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
                     <div class="card h-100 p-4 text-center shadow-sm" style="border: none; border-top: 4px solid var(--dadfar-blue);">
                         <div class="card-body">
                             <!-- در اینجا می‌توانید برای هر خدمت یک آیکون متفاوت بگذارید -->
