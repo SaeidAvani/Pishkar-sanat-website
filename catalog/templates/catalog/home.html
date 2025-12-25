@@ -1,0 +1,329 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دادفر صنعت | تکنولوژی هوای فشرده و CNG</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* --- تنظیمات کلی و رنگ‌های سازمانی (برگرفته از لوگو) --- */
+        :root {
+            --dadfar-blue: #2A5699; /* آبی لوگو */
+            --dadfar-dark-blue: #1a3a6c; /* آبی تیره‌تر برای هاور */
+            --dadfar-orange: #F39C12; /* نارنجی چرخ‌دنده لوگو */
+            --text-grey: #555555;
+            --light-bg: #f8f9fa;
+        }
+
+        body { font-family: 'Vazir', sans-serif; overflow-x: hidden; color: #333; }
+        
+        /* --- نوار منوی هوشمند (Glassmorphism) --- */
+        .navbar {
+            padding: 15px 0;
+            transition: all 0.4s ease;
+            background-color: transparent;
+        }
+        .navbar.scrolled {
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 10px 0;
+        }
+        .nav-link {
+            color: white !important;
+            font-weight: 500;
+            margin: 0 12px;
+            font-size: 0.95rem;
+            position: relative;
+        }
+        .navbar.scrolled .nav-link { color: #333 !important; }
+        .navbar.scrolled .nav-link:hover { color: var(--dadfar-blue) !important; }
+        
+        /* دکمه تماس در هدر */
+        .btn-nav-contact {
+            background-color: var(--dadfar-orange);
+            color: white !important;
+            border-radius: 4px; /* گوشه‌های تیزتر مشابه سبک صنعتی */
+            padding: 8px 20px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-nav-contact:hover { background-color: #e67e22; transform: translateY(-2px); }
+
+        /* لوگو در هدر */
+        .navbar-brand img { height: 50px; transition: 0.3s; }
+        .navbar.scrolled .navbar-brand img { height: 45px; }
+
+        /* --- هیرو سکشن (بنر اصلی) --- */
+        /* کد قبلی که لینک خارجی داشت را پاک کن و این را جایگزین کن */
+.hero-section {
+    position: relative;
+    height: 85vh;
+    /* استفاده از دستور static برای عکس پس‌زمینه */
+    background: linear-gradient(to left, rgba(42, 86, 153, 0.85), rgba(0,0,0,0.4)), 
+                url('{% static "images/hero-bg.jpg" %}'); /* اینجا تغییر کرد */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    color: white;
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+}
+        .hero-title { font-weight: 900; font-size: 3.5rem; margin-bottom: 20px; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); }
+        .hero-subtitle { font-size: 1.3rem; margin-bottom: 35px; opacity: 0.95; max-width: 600px; }
+        
+        .btn-hero-primary {
+            background-color: white; color: var(--dadfar-blue); padding: 12px 35px; border-radius: 4px; font-weight: bold; border: 2px solid white;
+        }
+        .btn-hero-primary:hover { background-color: transparent; color: white; }
+
+        /* --- بخش آمار و اعتماد --- */
+        .stats-section { margin-top: -60px; position: relative; z-index: 10; padding-bottom: 60px; }
+        .stat-card {
+            background: white; padding: 30px; border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center;
+            border-bottom: 4px solid var(--dadfar-blue); transition: transform 0.3s;
+        }
+        .stat-card:hover { transform: translateY(-10px); }
+        .stat-icon { font-size: 2.5rem; color: var(--dadfar-blue); margin-bottom: 15px; }
+        .stat-number { font-size: 2rem; font-weight: 900; color: #333; }
+
+        /* --- کارت محصولات (سبک اطلس کوپکو) --- */
+        .product-card {
+            border: 1px solid #eee; border-radius: 8px; overflow: hidden; background: white;
+            transition: 0.3s; height: 100%;
+        }
+        .product-card:hover { box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: var(--dadfar-blue); }
+        .product-img-wrap { position: relative; height: 240px; background: #f4f4f4; overflow: hidden; }
+        .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .product-card:hover .product-img-wrap img { transform: scale(1.05); }
+        
+        .product-body { padding: 20px; }
+        .product-category { font-size: 0.8rem; color: var(--dadfar-orange); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .product-title { font-size: 1.2rem; font-weight: 800; color: #222; margin: 10px 0; }
+        .product-desc { font-size: 0.9rem; color: #666; line-height: 1.6; }
+        
+        .btn-product-view { color: var(--dadfar-blue); font-weight: bold; text-decoration: none; border-bottom: 2px solid transparent; transition: 0.3s; }
+        .btn-product-view:hover { border-color: var(--dadfar-blue); padding-bottom: 2px; }
+
+        /* --- فوتر --- */
+        footer { background-color: #222; color: #bbb; padding-top: 70px; margin-top: 100px; }
+        footer h5 { color: white; font-weight: bold; margin-bottom: 25px; }
+        footer a { color: #bbb; text-decoration: none; display: block; margin-bottom: 12px; transition: 0.3s; }
+        footer a:hover { color: var(--dadfar-orange); padding-right: 5px; }
+        .footer-logo { filter: brightness(0) invert(1); height: 60px; margin-bottom: 20px; } /* سفید کردن لوگو */
+        .bottom-bar { background-color: #111; padding: 20px 0; margin-top: 50px; font-size: 0.85rem; }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'images/logo.jpg' %}" alt="شرکت دادفر صنعت">
+            </a>
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">صفحه اصلی</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#products">محصولات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">خدمات و تعمیرات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">درباره ما</a></li>
+                </ul>
+                <div class="ms-lg-4 mt-3 mt-lg-0">
+                    <a href="tel:09128639827" class="btn btn-nav-contact">
+                        <i class="fas fa-phone-alt ms-2"></i>تماس با کارشناس
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8" data-aos="fade-up">
+                    <h1 class="hero-title">قدرت و کیفیت در<br>صنعت هوای فشرده</h1>
+                    <p class="hero-subtitle">
+                        شرکت دادفر صنعت (پیشکار صنعت)، پیشرو در تأمین، اورهال و نگهداری کمپرسورهای صنعتی و جایگاه‌های CNG. 
+                        پیمانکار بیش از ۱۰۰ جایگاه سوخت در سراسر ایران.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#products" class="btn btn-hero-primary">
+                            مشاهده کاتالوگ محصولات
+                        </a>
+                        <a href="https://wa.me/989128639827" class="btn btn-outline-light px-4 py-2 fw-bold" style="border-width: 2px;">
+                            <i class="fab fa-whatsapp ms-2"></i>مشاوره در واتس‌اپ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="stats-section">
+        <div class="container">
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4 col-lg-3">
+                    <div class="stat-card" data-aos="fade-up" data-aos-delay="0">
+                        <i class="fas fa-gas-pump stat-icon"></i>
+                        <div class="stat-number">+۱۰۰</div>
+                        <div class="text-muted small">جایگاه CNG تحت پوشش</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fas fa-cogs stat-icon"></i>
+                        <div class="stat-number">+۱۰</div>
+                        <div class="text-muted small">سال تجربه تخصصی</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                        <i class="fas fa-headset stat-icon"></i>
+                        <div class="stat-number">۲۴/۷</div>
+                        <div class="text-muted small">پشتیبانی اضطراری</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="py-5">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-end mb-5">
+                <div>
+                    <h6 class="text-primary fw-bold text-uppercase">محصولات ما</h6>
+                    <h2 class="fw-bold mb-0">تجهیزات صنعتی پیشرفته</h2>
+                </div>
+                <a href="#" class="btn btn-outline-dark rounded-pill px-4 d-none d-md-block">مشاهده همه</a>
+            </div>
+
+            <div class="row g-4">
+                {% for product in products %}
+                <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                    <div class="product-card">
+                        <a href="{% url 'product_detail' product.id %}" class="d-block product-img-wrap">
+                            {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                            {% else %}
+                            <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                                <i class="fas fa-image fa-3x"></i>
+                            </div>
+                            {% endif %}
+                        </a>
+                        
+                        <div class="product-body">
+                            <div class="product-category">{{ product.get_model_type_display }}</div>
+                            <a href="{% url 'product_detail' product.id %}" class="text-decoration-none">
+                                <h5 class="product-title">{{ product.name }}</h5>
+                            </a>
+                            <p class="product-desc">{{ product.description|truncatewords:12 }}</p>
+                            
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                <a href="{% url 'product_detail' product.id %}" class="btn-product-view">
+                                    مشاهده مشخصات <i class="fas fa-arrow-left ms-1 small"></i>
+                                </a>
+                                <a href="https://wa.me/989128639827?text=استعلام قیمت محصول: {{ product.name }}" class="btn btn-sm btn-success rounded-circle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fab fa-whatsapp fa-lg"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center py-5 bg-light rounded">
+                    <p class="text-muted mb-0">هنوز محصولی به کاتالوگ اضافه نشده است.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 text-white mt-5" style="background-color: var(--dadfar-blue);">
+        <div class="container">
+            <div class="row align-items-center text-center text-md-start">
+                <div class="col-md-8 mb-3 mb-md-0">
+                    <h2 class="fw-bold mb-2">نیاز به تعمیر فوری کمپرسور دارید؟</h2>
+                    <p class="mb-0 opacity-75">تیم فنی ما در کمتر از ۲۴ ساعت در محل جایگاه یا کارخانه شما حاضر خواهد شد.</p>
+                </div>
+                <div class="col-md-4 text-center text-md-end">
+                    <a href="tel:09128639827" class="btn btn-warning fw-bold px-4 py-3 rounded-pill shadow">
+                        <i class="fas fa-tools ms-2"></i>درخواست اعزام کارشناس
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="about">
+        <div class="container">
+            <div class="row gy-5">
+                <div class="col-lg-4">
+                    <img src="{% static 'images/logo.jpg' %}" alt="دادفر صنعت" class="footer-logo">
+                    <p class="text-justify" style="line-height: 1.8;">
+                        گروه صنعتی دادفر صنعت (پیشکار صنعت) با تکیه بر دانش فنی و تجربه سال‌ها حضور در صنایع نفت، گاز و پتروشیمی، ارائه‌دهنده خدمات تخصصی هوای فشرده و CNG در ایران می‌باشد.
+                    </p>
+                </div>
+                <div class="col-lg-2 offset-lg-1 col-6">
+                    <h5>دسترسی سریع</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">صفحه اصلی</a></li>
+                        <li><a href="#products">محصولات</a></li>
+                        <li><a href="#services">خدمات ما</a></li>
+                        <li><a href="#">پروژه‌ها</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-6">
+                    <h5>محصولات</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">کمپرسور اسکرو</a></li>
+                        <li><a href="#">ژنراتور اکسیژن</a></li>
+                        <li><a href="#">قطعات یدکی</a></li>
+                        <li><a href="#">روغن صنعتی</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h5>ارتباط با ما</h5>
+                    <ul class="list-unstyled text-light">
+                        <li class="mb-3"><i class="fas fa-map-marker-alt ms-2 text-warning"></i>کرج، کمالشهر، شهرک امیرالمؤمنین، ظفر ۱۲، پلاک ۶</li>
+                        <li class="mb-3"><i class="fas fa-phone ms-2 text-warning"></i>۰۹۱۲۸۶۳۹۸۲۷</li>
+                        <li class="mb-3"><i class="fas fa-phone-office ms-2 text-warning"></i>۰۲۶۳۴۷۱۳۵۷۲</li>
+                        <li><i class="fas fa-envelope ms-2 text-warning"></i>Dadfarsanat.co@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-bar text-center">
+            <div class="container">
+                <p class="mb-0">تمامی حقوق مادی و معنوی محفوظ است © ۱۴۰۳ شرکت دادفر صنعت</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // فعال‌سازی انیمیشن‌ها
+        AOS.init({ duration: 800, once: true });
+
+        // تغییر رنگ منو هنگام اسکرول
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

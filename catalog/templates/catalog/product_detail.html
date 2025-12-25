@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} | دادفر صنعت</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* --- کپی کامل استایل‌های مشابه home.html --- */
+        :root {
+            --dadfar-blue: #2A5699;
+            --dadfar-orange: #F39C12;
+            --light-bg: #f8f9fa;
+        }
+        body { font-family: 'Vazir', sans-serif; overflow-x: hidden; color: #333; background-color: var(--light-bg); }
+        
+        .navbar { padding: 10px 0; background-color: #ffffff; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .navbar-brand img { height: 45px; }
+        .nav-link { color: #333 !important; font-weight: 500; }
+        .nav-link:hover { color: var(--dadfar-blue) !important; }
+        .btn-nav-contact { background-color: var(--dadfar-orange); color: white !important; border-radius: 4px; padding: 8px 20px; font-weight: bold; }
+
+        /* --- استایل‌های اختصاصی این صفحه --- */
+        .page-header { padding-top: 100px; } /* فاصله از بالای صفحه */
+        .product-img-container { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.07); }
+        .spec-box { background: white; padding: 30px; border-radius: 15px; margin-top: 20px; border-right: 5px solid var(--dadfar-blue); }
+        .btn-call-whatsapp { background: #25D366; color: white; border: none; padding: 15px; border-radius: 10px; font-size: 1.2rem; font-weight: bold; transition: transform 0.3s; }
+        .btn-call-whatsapp:hover { background: #128C7E; transform: translateY(-3px); }
+        .breadcrumb a { text-decoration: none; color: #666; }
+
+        /* --- فوتر --- */
+        footer { background-color: #222; color: #bbb; padding-top: 70px; margin-top: 100px; }
+        footer h5 { color: white; font-weight: bold; }
+        footer a { color: #bbb; text-decoration: none; }
+        footer a:hover { color: var(--dadfar-orange); }
+        .footer-logo { filter: brightness(0) invert(1); height: 60px; margin-bottom: 20px; }
+        .bottom-bar { background-color: #111; padding: 20px 0; margin-top: 50px; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+
+    <!-- منوی سایت (حالت غیرشفاف برای صفحات داخلی) -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images/logo.jpg' %}" alt="شرکت دادفر صنعت"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">صفحه اصلی</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}#products">محصولات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">درباره ما</a></li>
+                </ul>
+                <div class="ms-lg-4 mt-3 mt-lg-0"><a href="tel:09128639827" class="btn btn-nav-contact"><i class="fas fa-phone-alt ms-2"></i>تماس فوری</a></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- محتوای اصلی صفحه جزئیات محصول -->
+    <div class="container page-header">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-light p-3 rounded-3">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">صفحه اصلی</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+            </ol>
+        </nav>
+
+        <div class="row g-5 mt-4">
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="product-img-container text-center">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+                    {% else %}
+                        <div class="py-5 text-muted"><i class="fas fa-image fa-5x"></i></div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-up">
+                <h1 class="fw-bolder display-5 mb-3 text-dark">{{ product.name }}</h1>
+                <span class="badge bg-primary fs-6 mb-4">{{ product.get_model_type_display }}</span>
+                
+                {% if product.capacity %}
+                <div class="alert alert-info d-inline-block"><i class="fas fa-tachometer-alt ms-2"></i> ظرفیت/توان: <strong>{{ product.capacity }}</strong></div>
+                {% endif %}
+
+                <div class="spec-box mt-4">
+                    <h5 class="fw-bold border-bottom pb-3 mb-3">توضیحات و مشخصات فنی</h5>
+                    <div class="text-muted" style="line-height: 1.9;">{{ product.description|linebreaks }}</div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3"><a href="tel:02634713572" class="btn btn-outline-dark w-100 py-3"><i class="fas fa-phone-office ms-2"></i>تماس با کارگاه</a></div>
+                    <div class="col-md-6 mb-3"><a href="https://wa.me/989128639827?text=سلام، در مورد محصول {{ product.name }} سوال دارم" class="btn-call-whatsapp d-block text-center text-decoration-none"><i class="fab fa-whatsapp ms-2"></i>استعلام قیمت</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- فوتر کامل (کپی شده از home.html) -->
+    <footer id="about">
+        <div class="container"><div class="row gy-5"><div class="col-lg-4"><img src="{% static 'images/logo.jpg' %}" alt="دادفر صنعت" class="footer-logo"><p class="text-justify" style="line-height: 1.8;">گروه صنعتی دادفر صنعت...</p></div><div class="col-lg-2 offset-lg-1 col-6"><h5>دسترسی سریع</h5><ul class="list-unstyled"><li><a href="#">صفحه اصلی</a></li><li><a href="#products">محصولات</a></li></ul></div><div class="col-lg-2 col-6"><h5>محصولات</h5><ul class="list-unstyled"><li><a href="#">کمپرسور</a></li><li><a href="#">ژنراتور</a></li></ul></div><div class="col-lg-3"><h5>ارتباط با ما</h5><ul class="list-unstyled text-light"><li class="mb-3"><i class="fas fa-map-marker-alt ms-2 text-warning"></i>کرج، کمالشهر...</li><li class="mb-3"><i class="fas fa-phone ms-2 text-warning"></i>۰۹۱۲۸۶۳۹۸۲۷</li></ul></div></div></div>
+        <div class="bottom-bar text-center"><div class="container"><p class="mb-0">تمامی حقوق مادی و معنوی محفوظ است © ۱۴۰۳ شرکت دادفر صنعت</p></div></div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+    </script>
+</body>
+</html>
