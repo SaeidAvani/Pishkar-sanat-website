@@ -93,6 +93,15 @@
                     <div class="text-muted" style="line-height: 1.9;">{{ product.description|linebreaks }}</div>
                 </div>
 
+                <div class="spec-box mt-3">
+                    <h6 class="fw-bold mb-3">نیاز به پشتیبانی نصب یا تعمیر CNG؟</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a class="btn btn-primary btn-sm" href="{% url 'service_request' %}"><i class="fas fa-tools ms-1"></i>ثبت درخواست خدمت</a>
+                        <a class="btn btn-outline-secondary btn-sm" href="{% url 'faq' %}"><i class="fas fa-question-circle ms-1"></i>پرسش‌های متداول</a>
+                        <a class="btn btn-outline-dark btn-sm" href="{% url 'blog_cng_maintenance' %}"><i class="fas fa-book-open ms-1"></i>راهنمای نگهداری CNG</a>
+                    </div>
+                </div>
+
                 <div class="row mt-4">
                     <div class="col-md-6 mb-3"><a href="tel:02634713572" class="btn btn-outline-dark w-100 py-3"><i class="fas fa-phone-office ms-2"></i>تماس با کارگاه</a></div>
                     <div class="col-md-6 mb-3"><a href="https://wa.me/989128639827?text=سلام، در مورد محصول {{ product.name }} سوال دارم" class="btn-call-whatsapp d-block text-center text-decoration-none"><i class="fab fa-whatsapp ms-2"></i>استعلام قیمت</a></div>
@@ -100,7 +109,29 @@
             </div>
         </div>
     </div>
-
+    <div class="product-specs mt-5">
+    <h4 class="mb-4">مشخصات فنی محصول</h4>
+    <table class="table table-striped table-hover border">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">ویژگی</th>
+                <th scope="col">مقدار</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for spec in product.specs.all %}
+            <tr>
+                <td>{{ spec.key }}</td>
+                <td>{{ spec.value }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="2" class="text-center">مشخصات فنی برای این محصول ثبت نشده است.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
     <!-- فوتر کامل (کپی شده از home.html) -->
     <footer id="about">
         <div class="container"><div class="row gy-5"><div class="col-lg-4"><img src="{% static 'images/logo.jpg' %}" alt="دادفر صنعت" class="footer-logo"><p class="text-justify" style="line-height: 1.8;">گروه صنعتی دادفر صنعت...</p></div><div class="col-lg-2 offset-lg-1 col-6"><h5>دسترسی سریع</h5><ul class="list-unstyled"><li><a href="#">صفحه اصلی</a></li><li><a href="#products">محصولات</a></li></ul></div><div class="col-lg-2 col-6"><h5>محصولات</h5><ul class="list-unstyled"><li><a href="#">کمپرسور</a></li><li><a href="#">ژنراتور</a></li></ul></div><div class="col-lg-3"><h5>ارتباط با ما</h5><ul class="list-unstyled text-light"><li class="mb-3"><i class="fas fa-map-marker-alt ms-2 text-warning"></i>کرج، کمالشهر...</li><li class="mb-3"><i class="fas fa-phone ms-2 text-warning"></i>۰۹۱۲۸۶۳۹۸۲۷</li></ul></div></div></div>

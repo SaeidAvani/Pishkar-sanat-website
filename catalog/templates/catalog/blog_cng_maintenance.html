@@ -1,0 +1,74 @@
+{% extends "catalog/base.html" %}
+{% load static %}
+
+{% block title %}راهنمای نگهداری و تعمیر اضطراری کمپرسور و پمپ CNG | دادفر صنعت{% endblock %}
+{% block meta %}
+    <meta name="description" content="راهنمای تخصصی نگهداری و تعمیر اضطراری کمپرسور و پمپ‌های CNG برای جایگاه‌های عرضه گاز. چک‌لیست روزانه، نشانه‌های خرابی و روش کاهش زمان خواب دستگاه.">
+    <meta name="keywords" content="نگهداری کمپرسور CNG, تعمیر پمپ گاز CNG, چک لیست سرویس CNG, زمان خواب دستگاه, پیشکار صنعت">
+    <link rel="canonical" href="{% if request %}{{ request.build_absolute_uri }}{% else %}/blog/cng-compressor-maintenance/{% endif %}">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "راهنمای نگهداری و تعمیر اضطراری کمپرسور و پمپ CNG",
+      "author": { "@type": "Organization", "name": "دادفر صنعت" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "دادفر صنعت",
+        "logo": { "@type": "ImageObject", "url": "{% static 'images/logo.jpg' %}" }
+      },
+      "datePublished": "2024-01-01",
+      "image": "{% static 'images/logo.jpg' %}",
+      "description": "چک‌لیست نگهداری، علائم خرابی و اقدامات فوری برای کاهش توقف کمپرسور و پمپ CNG در جایگاه‌های عرضه گاز."
+    }
+    </script>
+{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="mb-4">
+            <div class="badge bg-warning text-dark rounded-pill px-3 py-2 fw-bold">دانشنامه CNG</div>
+            <h1 class="mt-3 fw-bold">راهنمای نگهداری و تعمیر اضطراری کمپرسور و پمپ CNG</h1>
+            <p class="text-muted mb-3">برای جایگاه‌داران و مدیران صنایع که به زمان آماده‌به‌کار بالا و ایمنی حساس نیاز دارند.</p>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{% url 'service_request' %}" class="btn btn-primary"><i class="fas fa-tools ms-2"></i>درخواست پشتیبانی فوری</a>
+                <a href="tel:09128639827" class="btn btn-outline-dark"><i class="fas fa-phone-alt ms-2"></i>تماس ۲۴/۷</a>
+            </div>
+        </div>
+
+        <article class="bg-white p-4 rounded-3 shadow-sm">
+            <h2 class="h5 fw-bold mt-2">1. چک‌لیست روزانه پیش از شروع کار</h2>
+            <ul class="text-muted small">
+                <li>بازبینی نشتی گاز و روغن در واحد کمپرسور و پایپینگ</li>
+                <li>کنترل فشار ورودی و خروجی و ثبت در لاگ روزانه</li>
+                <li>بررسی دمای روغن و صدای غیرعادی روتور/بلبرینگ</li>
+                <li>تست عملکرد ولو اطمینان و سیستم ایمنی توقف اضطراری</li>
+            </ul>
+
+            <h2 class="h5 fw-bold mt-3">2. نشانه‌های خرابی که نیاز به توقف فوری دارند</h2>
+            <p class="text-muted small">افزایش ناگهانی دما، افت فشار خروجی، لرزش غیرعادی، بوی سوختگی و آلارم‌های مکرر PLC. در این موارد دستگاه را ایمن خاموش کنید و تیم پشتیبانی را خبر کنید.</p>
+
+            <h2 class="h5 fw-bold mt-3">3. کاهش زمان خواب دستگاه</h2>
+            <p class="text-muted small">قطعات مصرفی (فیلتر هوا/روغن، او-رینگ‌ها) را در انبار آماده داشته باشید، برنامه PM ماهانه و سه‌ماهه تنظیم کنید و تست نشتی و فشار را مستند کنید.</p>
+
+            <h2 class="h5 fw-bold mt-3">4. سرویس دوره‌ای پیشنهادی</h2>
+            <ul class="text-muted small">
+                <li>ماهانه: تعویض فیلتر هوا، تمیزکاری کولر، کالیبراسیون سنسور فشار</li>
+                <li>سه‌ماهه: تعویض روغن، بررسی بلبرینگ، تست لرزش و بالانس</li>
+                <li>سالانه: اورهال کامل، تعویض پک سیل، بازرسی پایپینگ و درایر</li>
+            </ul>
+
+            <div class="alert alert-warning mt-4 mb-2">
+                <strong>یادآوری ایمنی:</strong> حتماً پس از هر تعمیر، گزارش تست فشار و ایمنی ثبت و امضا شود. در محیط‌های بسته از تهویه مناسب و گازسنج استفاده کنید.
+            </div>
+        </article>
+
+        <div class="d-flex flex-wrap gap-2 mt-4">
+            <a href="{% url 'service_request' %}" class="btn btn-primary"><i class="fas fa-clipboard-list ms-2"></i>ثبت درخواست سرویس CNG</a>
+            <a href="{% url 'faq' %}" class="btn btn-outline-secondary"><i class="fas fa-question-circle ms-2"></i>پرسش‌های متداول</a>
+            <a href="#top" class="btn btn-link text-decoration-none">بازگشت به بالا</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'catalog/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5 py-5" dir="rtl">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h3 class="mb-0">درخواست اعزام کارشناس و تعمیرات</h3>
+                    <small>پیشکار صنعت - خدمات فنی و مهندسی کمپرسور</small>
+                </div>
+                <div class="card-body p-4">
+
+                    <div class="alert alert-info mb-4">
+                        <div class="fw-bold mb-1"><i class="fas fa-gas-pump ms-2"></i>تمرکز بر جایگاه‌های گاز CNG و صنایع حساس</div>
+                        <small class="text-muted">اعزام ۲۴/۷، گزارش ایمنی و استفاده از قطعات اصلی. اگر سوالی دارید، <a href="{% url 'faq' %}">پرسش‌های متداول</a> را ببینید یا <a href="{% url 'blog_cng_maintenance' %}">راهنمای نگهداری CNG</a> را مطالعه کنید.</small>
+                    </div>
+                    
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <form method="post" class="needs-validation">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">نام و نام خانوادگی</label>
+                                <input type="text" name="full_name" class="form-control" placeholder="مثلاً: سعید ..." required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">شماره تماس</label>
+                                <input type="text" name="phone" class="form-control" placeholder="0912..." required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">نام شرکت / جایگاه CNG</label>
+                            <input type="text" name="company" class="form-control" placeholder="نام مجموعه شما">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">نوع خدمت مورد نیاز</label>
+                            <select name="service_type" class="form-select">
+                                <option value="repair">تعمیرات اساسی</option>
+                                <option value="overhaul">اورهال (Overhaul)</option>
+                                <option value="piping">پایپینگ و لوله‌کشی</option>
+                                <option value="emergency">اعزام فوری کارشناس</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">شرح درخواست</label>
+                            <textarea name="message" class="form-control" rows="5" placeholder="جزئیات خرابی یا نوع دستگاه را اینجا بنویسید..."></textarea>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">ثبت و ارسال درخواست</button>
+                            <a href="{% url 'faq' %}" class="btn btn-outline-secondary">پرسش‌های متداول</a>
+                            <a href="{% url 'home' %}#services" class="btn btn-outline-dark">بازگشت به خدمات</a>
+                            <a href="{% url 'home' %}" class="btn btn-outline-secondary">بازگشت به صفحه اصلی</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

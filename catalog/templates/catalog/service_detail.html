@@ -1,0 +1,116 @@
+{% extends "catalog/base.html" %}
+{% load static %}
+
+{% block title %}{{ service.title }} | خدمات دادفر صنعت{% endblock %}
+
+{% block extra_css %}
+<style>
+    .service-hero {
+        background: linear-gradient(135deg, rgba(42,86,153,0.85), rgba(0,0,0,0.65)), url('{% static "images/hero-bg.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+        padding: 120px 0 80px;
+    }
+    .service-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        background: rgba(255,255,255,0.15);
+        border: 1px solid rgba(255,255,255,0.25);
+    }
+    .service-card {
+        border: 1px solid #e9edf5;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        background: #fff;
+    }
+    .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: #eef2fb;
+        color: #2A5699;
+        font-weight: 700;
+        font-size: 0.9rem;
+    }
+    .cta-box {
+        border-left: 4px solid #F39C12;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="service-hero">
+    <div class="container">
+        <div class="row align-items-center g-4">
+            <div class="col-md-8">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="service-icon">
+                        <i class="{{ service.icon_class }} fa-2x"></i>
+                    </div>
+                    <div>
+                        <div class="pill"><i class="fas fa-check-circle"></i><span>خدمات تخصصی</span></div>
+                        <h1 class="h2 fw-bold mt-2 mb-0">{{ service.title }}</h1>
+                    </div>
+                </div>
+                <p class="lead mb-4">{{ service.short_description }}</p>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="{% url 'service_request' %}" class="btn btn-warning btn-lg fw-bold">
+                        <i class="fas fa-tools ms-2"></i>درخواست این خدمت
+                    </a>
+                    <a href="tel:09128639827" class="btn btn-outline-light btn-lg fw-bold">
+                        <i class="fas fa-phone-alt ms-2"></i>تماس فوری
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 text-md-end text-center">
+                <div class="pill mb-2"><i class="fas fa-headset"></i><span>پشتیبانی ۲۴/۷</span></div>
+                <div class="pill mb-2"><i class="fas fa-user-shield"></i><span>تیم متخصص</span></div>
+                <div class="pill"><i class="fas fa-map-marker-alt"></i><span>پوشش سراسری</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="service-card p-4">
+                    <h3 class="fw-bold mb-3">شرح خدمت</h3>
+                    <div class="text-secondary" style="line-height: 1.9;">{{ service.full_description|linebreaks }}</div>
+                </div>
+                <div class="service-card p-4 mt-3">
+                    <h6 class="fw-bold mb-3">منابع مرتبط</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a class="btn btn-outline-primary btn-sm" href="{% url 'service_request' %}"><i class="fas fa-tools ms-1"></i>ثبت درخواست همین خدمت</a>
+                        <a class="btn btn-outline-secondary btn-sm" href="{% url 'faq' %}"><i class="fas fa-question-circle ms-1"></i>پرسش‌های متداول CNG</a>
+                        <a class="btn btn-outline-dark btn-sm" href="{% url 'blog_cng_maintenance' %}"><i class="fas fa-book-open ms-1"></i>راهنمای نگهداری کمپرسور CNG</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="service-card p-4 mb-3 cta-box">
+                    <h5 class="fw-bold mb-3">مشاوره و برآورد</h5>
+                    <p class="text-muted mb-3">در کمتر از ۲۴ ساعت با شما تماس می‌گیریم.</p>
+                    <a href="{% url 'service_request' %}" class="btn btn-primary w-100 mb-2">ثبت درخواست آنلاین</a>
+                    <a href="https://wa.me/989128639827" class="btn btn-success w-100"><i class="fab fa-whatsapp ms-2"></i>مشاوره واتس‌اپ</a>
+                </div>
+                <div class="service-card p-4">
+                    <h6 class="fw-bold mb-3">چرا این خدمت با ما؟</h6>
+                    <ul class="list-unstyled text-muted small">
+                        <li class="mb-2"><i class="fas fa-circle-check text-success ms-2"></i>تجهیزات کالیبره و استاندارد</li>
+                        <li class="mb-2"><i class="fas fa-circle-check text-success ms-2"></i>کارشناسان دارای گواهی ایمنی</li>
+                        <li class="mb-2"><i class="fas fa-circle-check text-success ms-2"></i>گزارش کامل پس از انجام کار</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

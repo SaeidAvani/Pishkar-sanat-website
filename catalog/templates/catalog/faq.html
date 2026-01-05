@@ -1,0 +1,158 @@
+{% extends "catalog/base.html" %}
+{% load static %}
+
+{% block title %}پرسش‌های متداول | پشتیبانی و تعمیر کمپرسور و پمپ CNG{% endblock %}
+{% block meta %}
+    <meta name="description" content="سوالات متداول درباره پشتیبانی، تعمیر اضطراری و سرویس دوره‌ای کمپرسور و پمپ‌های CNG و هوای فشرده برای جایگاه‌های عرضه گاز و صنایع.">
+    <meta name="keywords" content="پرسش های متداول CNG, تعمیر پمپ گاز, پشتیبانی جایگاه CNG, سرویس کمپرسور CNG, پیشکار صنعت">
+    <link rel="canonical" href="{% if request %}{{ request.build_absolute_uri }}{% else %}/faq/{% endif %}">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .faq-hero {
+        background: linear-gradient(135deg, rgba(42,86,153,0.85), rgba(0,0,0,0.55)), url('{% static "images/hero-bg.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+        padding: 110px 0 80px;
+    }
+    .badge-accent {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: #fff3e0;
+        color: #d35400;
+        font-weight: 700;
+    }
+    .faq-card {
+        border: 1px solid #eaeef5;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="faq-hero text-center">
+    <div class="container">
+        <div class="badge-accent mb-3"><i class="fas fa-question-circle"></i><span>پرسش‌های متداول</span></div>
+        <h1 class="fw-bold mb-3">سوالات رایج درباره خدمات و محصولات</h1>
+        <p class="lead mb-0">پاسخ سریع به دغدغه‌های فنی و فرآیندهای کاری در صنعت هوای فشرده و CNG</p>
+    </div>
+    </section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="faq-card p-4">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq1">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                                    زمان اعزام کارشناس چقدر است؟
+                                </button>
+                            </h2>
+                            <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">در بیشتر شهرها کمتر از ۲۴ ساعت؛ برای مناطق دور هماهنگی تلفنی انجام می‌شود.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq2">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                    آیا گزارش ایمنی و تست فشار ارائه می‌شود؟
+                                </button>
+                            </h2>
+                            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">بله، پس از هر سرویس یا اورهال، گزارش تست فشار و چک‌لیست ایمنی تحویل می‌شود.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq3">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                                    قطعات یدکی با چه برندی تأمین می‌شوند؟
+                                </button>
+                            </h2>
+                            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">استفاده از قطعات اصلی یا OEM تأییدشده بر اساس برند دستگاه و موجودی انبار.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq4">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                                    آیا قرارداد نگهداری دوره‌ای دارید؟
+                                </button>
+                            </h2>
+                            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">بله، قرارداد PM ماهانه/سه‌ماهه/سالانه با SLA مشخص و گزارش‌های دوره‌ای ارائه می‌شود.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq5">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                                    آیا جایگزین اضطراری برای توقف تولید فراهم می‌کنید؟
+                                </button>
+                            </h2>
+                            <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="faq5" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">در صورت امکان کمپرسور اجاره‌ای/جایگزین موقت معرفی می‌شود تا توقف تولید به حداقل برسد.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="application/ld+json">
+            {
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "زمان اعزام کارشناس چقدر است؟",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "در بیشتر شهرها کمتر از ۲۴ ساعت؛ برای مناطق دور هماهنگی تلفنی انجام می‌شود."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "آیا گزارش ایمنی و تست فشار ارائه می‌شود؟",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "بله، پس از هر سرویس یا اورهال، گزارش تست فشار و چک‌لیست ایمنی تحویل می‌شود."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "قطعات یدکی با چه برندی تأمین می‌شوند؟",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "استفاده از قطعات اصلی یا OEM تأییدشده بر اساس برند دستگاه و موجودی انبار."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "آیا قرارداد نگهداری دوره‌ای دارید؟",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "بله، قرارداد PM ماهانه/سه‌ماهه/سالانه با SLA مشخص و گزارش‌های دوره‌ای ارائه می‌شود."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "آیا جایگزین اضطراری برای توقف تولید فراهم می‌کنید؟",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "در صورت امکان کمپرسور اجاره‌ای/جایگزین موقت معرفی می‌شود تا توقف تولید به حداقل برسد."
+                  }
+                }
+              ]
+            }
+            </script>
+        </div>
+    </div>
+</section>
+{% endblock %}
